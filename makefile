@@ -6,6 +6,7 @@ SOURCEDIR = src/$(PKG_PATH)
 GEN_SRCDIR ?= src
 export GEN_SRCDIR
 DOCSDIR = docs
+GCC=gcc
 
 APIURL=http://java.sun.com/j2se/5.0/docs/api # External URLs in the docs will point here
 
@@ -646,7 +647,7 @@ OLDSOURCES = \
 # whereas ASSERTS compiles in some assertions (whose testing, of course, must be enabled in the JVM).
 
 $(JSOURCES) $(OLDJSOURCES): %.java: %.c
-	gcc -w -I. -ftabstop=4 $(if $(TEST),-DTEST,) $(if $(ASSERTS),-DASSERTS_CODE,) -DASSERTS_VALUE=$(if $(ASSERTS),true,false) -E -C -P $< >$@
+	$(GCC) -w -I. -ftabstop=4 $(if $(TEST),-DTEST,) $(if $(ASSERTS),-DASSERTS_CODE,) -DASSERTS_VALUE=$(if $(ASSERTS),true,false) -E -C -P $< >$@
 
 
 clean: 
